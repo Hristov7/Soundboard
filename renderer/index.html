@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>SoundFactory</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="titlebar">
+    <div class="titlebar-title">SoundFactory</div>
+    <div class="window-controls">
+      <button id="window-minimize" class="window-control-btn window-control-minimize" aria-label="Minimize window" title="Minimize"></button>
+      <button id="window-maximize" class="window-control-btn window-control-maximize" aria-label="Maximize window" title="Maximize"></button>
+      <button id="window-close" class="window-control-btn" aria-label="Close window" title="Close"></button>
+    </div>
+  </div>
+  <aside id="left-panel">
+    <h2>Quick Panel</h2>
+    <button
+      id="left-settings-btn"
+      class="left-panel-icon-btn"
+      type="button"
+      aria-label="Open quick panel settings"
+      aria-expanded="false"
+      title="Quick Panel Settings"
+    >
+      <svg
+        class="settings-icon"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <circle cx="12" cy="12" r="3.2"></circle>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.08a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.08a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.08a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+      </svg>
+    </button>
+    <div id="left-settings-menu" aria-hidden="true">
+      <h3>Settings</h3>
+      <button id="toggle-left-panel-theme" type="button">Use Purple-Pink Theme</button>
+    </div>
+  </aside>
+  <div id="main">
+    <div id="top-panel">
+      <h1 id="top-panel-title">SoundFactory</h1>
+      <button id="addSound">+ Add Sound</button>
+    </div>
+    <div id="soundboard"></div>
+  </div>
+
+  <aside id="side-panel">
+    <div id="audio-panel" class="audio-panel hidden">
+      <div class="icon-section">
+        <div style="position: relative; display: inline-block;">
+          <div class="sound-icon">
+            <div class="speaker-icon"></div>
+          </div>
+          <div class="edit-icon"></div>
+        </div>
+        <div class="shortcut" id="current-sound-name">No Sound Playing</div>
+      </div>
+
+      <div class="volume-section">
+        <div class="volume-label">
+          <div class="volume-icon"></div>
+          <span>Volume</span>
+        </div>
+        <input type="range" id="panel-volume" class="panel-volume-slider" min="0" max="100" value="100">
+        <div class="volume-value" id="volume-display">100</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">
+          <div class="reproduction-icon"></div>
+          Reproduction Mode
+        </div>
+        <div class="mode-toggle-group" role="radiogroup" aria-label="Reproduction mode">
+          <button
+            type="button"
+            class="mode-toggle is-active"
+            role="radio"
+            aria-checked="true"
+            data-mode="play-overlap"
+          >
+            <span class="mode-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <polygon class="icon-fill" points="3,5 3,19 13,12"></polygon>
+                <polygon class="icon-fill" points="9,5 9,19 19,12"></polygon>
+              </svg>
+            </span>
+            <span class="mode-label">Play and Overlap</span>
+          </button>
+          <button
+            type="button"
+            class="mode-toggle"
+            role="radio"
+            aria-checked="false"
+            data-mode="play-pause"
+          >
+            <span class="mode-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <polygon class="icon-fill" points="3,5 3,19 12,12"></polygon>
+                <rect class="icon-fill" x="14" y="6" width="3.5" height="12" rx="1"></rect>
+                <rect class="icon-fill" x="19" y="6" width="3.5" height="12" rx="1"></rect>
+              </svg>
+            </span>
+            <span class="mode-label">Play and Pause</span>
+          </button>
+          <button
+            type="button"
+            class="mode-toggle"
+            role="radio"
+            aria-checked="false"
+            data-mode="play-stop"
+          >
+            <span class="mode-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <polygon class="icon-fill" points="3,5 3,19 12,12"></polygon>
+                <rect class="icon-fill" x="15" y="7" width="7" height="10" rx="1"></rect>
+              </svg>
+            </span>
+            <span class="mode-label">Play and Stop</span>
+          </button>
+          <button
+            type="button"
+            class="mode-toggle"
+            role="radio"
+            aria-checked="false"
+            data-mode="play-restart"
+          >
+            <span class="mode-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <polygon class="icon-fill" points="3,5 3,19 11,12"></polygon>
+                <path d="M16 8a4.5 4.5 0 1 1-2.2 8.4"></path>
+                <polyline points="13.5,7.5 16.5,8 15.5,5"></polyline>
+              </svg>
+            </span>
+            <span class="mode-label">Play and Restart</span>
+          </button>
+          <button
+            type="button"
+            class="mode-toggle"
+            role="radio"
+            aria-checked="false"
+            data-mode="push-loop"
+          >
+            <span class="mode-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M4.5 12a4 4 0 0 1 4-4h6.5"></path>
+                <polyline points="13.5,4.5 18,8 13.5,11.5"></polyline>
+                <path d="M19.5 12a4 4 0 0 1-4 4H9"></path>
+                <polyline points="10.5,19.5 6,16 10.5,12.5"></polyline>
+              </svg>
+            </span>
+            <span class="mode-label">Push to Loop</span>
+          </button>
+        </div>
+        
+        <div class="progress-section">
+          <div class="time-display">
+            <span id="current-time">0:00</span>
+            <span id="total-time">0:00</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">
+          <div class="options-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          Reproduction Options
+        </div>
+        <div class="checkbox-group">
+          <label class="checkbox-item">
+            <div class="checkbox" id="check-stop-others"></div>
+            <span class="checkbox-label">Stop Other Sounds</span>
+          </label>
+          <label class="checkbox-item">
+            <div class="checkbox" id="check-mute-others"></div>
+            <span class="checkbox-label">Mute Other Sounds</span>
+          </label>
+          <label class="checkbox-item">
+            <div class="checkbox" id="check-loop"></div>
+            <span class="checkbox-label">Loop Current</span>
+          </label>
+        </div>
+        <button id="stop-all-sounds" class="panel-action-btn" type="button">
+          Stop All Sounds
+        </button>
+      </div>
+    </div>
+
+    <div class="global-volume-section">
+      <div class="global-volume-header">
+        <span>Global Volume</span>
+        <span id="global-volume-display">100</span>
+      </div>
+      <input
+        type="range"
+        id="global-volume"
+        class="panel-volume-slider"
+        min="0"
+        max="100"
+        value="100"
+      >
+    </div>
+  </aside>
+
+  <script src="index.js"></script>
+</body>
+</html>
